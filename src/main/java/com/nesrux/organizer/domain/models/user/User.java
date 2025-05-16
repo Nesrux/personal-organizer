@@ -3,28 +3,34 @@ package com.nesrux.organizer.domain.models.user;
 import java.time.Instant;
 import java.util.Objects;
 
-import com.nesrux.organizer.domain.utils.InstantUtils;
+import com.nesrux.organizer.utils.IdUtils;
+import com.nesrux.organizer.utils.InstantUtils;
 
 public class User {
 
-    private UserId id;
+    private String id;
     private String nome;
     private String email;
+    private boolean active;
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
 
-    private User(final UserId id, final String nome, final String email) {
+    private User(final String id, final String nome, final String email) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
-        this.id = id;
+        this.active = true;
         this.createdAt = InstantUtils.now();
         this.updatedAt = InstantUtils.now();
-
     }
 
     public static User create(final String nome, final String email) {
-        return new User(UserId.unique(), nome, email);
+        return new User(IdUtils.uuid(), nome, email);
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public String getNome() {
@@ -35,8 +41,8 @@ public class User {
         return email;
     }
 
-    public String getId() {
-        return id.getValue();
+    public boolean isActive() {
+        return active;
     }
 
     public Instant getCreatedAt() {
