@@ -61,7 +61,7 @@ public class Task {
             final Frequency frequency) {
         setTitle(title);
         setDescription(description);
-        this.frequency = frequency;
+        this.frequency = Objects.requireNonNull(frequency, "frequency not be null");
         this.updatedAt = InstantUtils.now();
         return this;
     }
@@ -79,15 +79,6 @@ public class Task {
             this.updatedAt = InstantUtils.now();
             this.deletedAt = InstantUtils.now();
         }
-    }
-
-    public Task changeFrequency(final Frequency frequency) {
-        if (this.active != false) {
-            this.frequency = frequency;
-            this.updatedAt = InstantUtils.now();
-        }
-        return this;
-
     }
 
     public String getId() {

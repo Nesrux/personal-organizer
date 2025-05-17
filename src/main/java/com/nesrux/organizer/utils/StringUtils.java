@@ -15,15 +15,15 @@ public final class StringUtils {
         String valor = text.trim();
 
         if (valor.isEmpty()) {
-            throw new DomainException(field + " not be empty.");
+            throw new DomainException(field + " not be empty");
         }
 
         if (valor.length() < 4) {
-            throw new DomainException(field + " must have at least 4 characters.");
+            throw new DomainException(field + " must have at least 4 characters");
         }
 
         if (valor.length() > 255) {
-            throw new DomainException(field + " must have a maximum of 255 characters.");
+            throw new DomainException(field + " must have a maximum of 255 characters");
         }
 
         return text;
