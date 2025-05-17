@@ -55,6 +55,18 @@ public class Task {
                 InstantUtils.now());
     }
 
+    public static Task with(
+            final String id,
+            final String title,
+            final String description,
+            final Frequency frequency,
+            final boolean active,
+            final Category category,
+            final Instant createdAt,
+            final Instant updatedAt) {
+        return new Task(id, title, description, frequency, active, category, createdAt, updatedAt);
+    }
+
     public Task update(
             final String title,
             final String description,

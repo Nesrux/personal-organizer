@@ -18,7 +18,8 @@ public class Category {
     private Instant createdAt;
     private Instant updatedAt;
 
-    private Category(final String id, final String name, final Instant createdAt, final Instant updatedAt) {
+    private Category(final String id, final String name, final Instant createdAt, final Instant updatedAt,
+            List<Task> tasks) {
         this.id = id;
         this.name = StringUtils.validate(name, "name");
         this.tasks = new ArrayList<>();
@@ -26,8 +27,17 @@ public class Category {
         this.updatedAt = updatedAt;
     }
 
+    public static Category with(
+            final String id,
+            final String name,
+            final Instant createdAt,
+            final Instant updatedAt,
+            List<Task> tasks) {
+        return new Category(id, name, createdAt, updatedAt, tasks);
+    }
+
     public static Category create(final String name) {
-        return new Category(IdUtils.uuid(), name, InstantUtils.now(), InstantUtils.now());
+        return new Category(IdUtils.uuid(), name, InstantUtils.now(), InstantUtils.now(), new ArrayList<>());
     }
 
     public Category addTask(final Task task) {
