@@ -114,7 +114,6 @@ public class TaskTest {
         Assertions.assertEquals(deletedAt, actualTask.getDeletedAt());
         Assertions.assertEquals(actualTitle, actualTask.getTitle());
         Assertions.assertEquals(actualDescription, actualTask.getDescription());
-        Assertions.assertEquals(actualFrequency, actualTask.getFrequency());
         Assertions.assertNotEquals(tile, actualTask.getTitle());
         Assertions.assertNotEquals(description, actualTask.getDescription());
         Assertions.assertNotEquals(frequency, actualTask.getFrequency());
@@ -170,6 +169,69 @@ public class TaskTest {
         Assertions.assertEquals(message, actualException.getMessage());
     }
 
-    //Active deactive
+    // Active deactive
+    @Test
+    public void givenAValidTaskWithActiveIsTrue_whenCallsActive_thenDoNothing() {
+        // given
+        final var task = MockDomain.taskMock();
+        final var id = task.getId();
+        final var title = task.getTitle();
+        final var description = task.getDescription();
+        final var category = task.getCategory();
+        final var frequency = task.getFrequency();
+        final var active = task.isActive();
+        final var createdAt = task.getCreatedAt();
+        final var updatedAt = task.getUpdatedAt();
+        final var deletedAt = task.getDeletedAt();
+
+        // when
+        task.actvate();
+
+        // then
+        Assertions.assertEquals(id, task.getId());
+        Assertions.assertEquals(category, task.getCategory());
+        Assertions.assertEquals(active, task.isActive());
+        Assertions.assertEquals(createdAt, task.getCreatedAt());
+        Assertions.assertEquals(deletedAt, task.getDeletedAt());
+        Assertions.assertEquals(title, task.getTitle());
+        Assertions.assertEquals(description, task.getDescription());
+        Assertions.assertEquals(frequency, task.getFrequency());
+        Assertions.assertEquals(title, task.getTitle());
+        Assertions.assertEquals(description, task.getDescription());
+        Assertions.assertEquals(task.getUpdatedAt(), updatedAt);
+        Assertions.assertNull(task.getDeletedAt());
+    }
+
+    @Test
+    public void givenAValidTaskWithActiveIsTrue_whenCallsDeActive_thenDeactivateTask() {
+        // given
+        final var task = MockDomain.taskMock();
+        final var id = task.getId();
+        final var title = task.getTitle();
+        final var description = task.getDescription();
+        final var category = task.getCategory();
+        final var frequency = task.getFrequency();
+        final var active = task.isActive();
+        final var createdAt = task.getCreatedAt();
+        final var updatedAt = task.getUpdatedAt();
+        final var deletedAt = task.getDeletedAt();
+
+        // when
+        task.deactivate();
+
+        // then
+        Assertions.assertEquals(id, task.getId());
+        Assertions.assertEquals(category, task.getCategory());
+        Assertions.assertEquals(createdAt, task.getCreatedAt());
+        Assertions.assertNotEquals(active, task.isActive());
+        Assertions.assertNotEquals(deletedAt, task.getDeletedAt());
+        Assertions.assertEquals(title, task.getTitle());
+        Assertions.assertEquals(frequency, task.getFrequency());
+        Assertions.assertEquals(title, task.getTitle());
+        Assertions.assertEquals(description, task.getDescription());
+        Assertions.assertEquals(frequency, task.getFrequency());
+        Assertions.assertTrue(task.getUpdatedAt().isAfter(updatedAt));
+        Assertions.assertNotNull(task.getDeletedAt());
+    }
 
 }

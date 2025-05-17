@@ -70,6 +70,7 @@ public class Task {
         if (!this.active) {
             this.active = true;
             this.updatedAt = InstantUtils.now();
+            this.deletedAt = null;
         }
     }
 
