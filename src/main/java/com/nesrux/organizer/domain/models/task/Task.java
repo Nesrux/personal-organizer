@@ -2,8 +2,8 @@ package com.nesrux.organizer.domain.models.task;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.Locale.Category;
 
+import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.utils.IdUtils;
 import com.nesrux.organizer.utils.InstantUtils;
 
@@ -24,24 +24,31 @@ public class Task {
             final String description,
             final Frequency frequency,
             final boolean active,
+            final Category category,
             final Instant createdAt,
             final Instant updatedAt) {
         this.id = Objects.requireNonNull(id, "id not be null");
         this.title = Objects.requireNonNull(title, "title not be null");
-        this.description = description;
+        this.category = Objects.requireNonNull(category, "category not be null");
         this.frequency = Objects.requireNonNull(frequency, "frequency not be null");
         this.active = active;
+        this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public static Task create(final String title, final String description, final Frequency frequency) {
+    public static Task create(
+            final String title,
+            final String description,
+            final Frequency frequency,
+            final Category category) {
         return new Task(
                 IdUtils.uuid(),
                 title,
                 description,
                 frequency,
                 false,
+                category,
                 InstantUtils.now(),
                 InstantUtils.now());
     }
@@ -107,6 +114,10 @@ public class Task {
 
     public Instant getDeletedAt() {
         return this.deletedAt;
+    }
+
+    public Category getCategory() {
+        return this.category;
     }
 
     @Override

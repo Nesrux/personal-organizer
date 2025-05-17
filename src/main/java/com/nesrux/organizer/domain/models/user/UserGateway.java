@@ -8,6 +8,8 @@ public interface UserGateway {
 
     public void deleteUserById(final String id);
 
+    User saveUser(final User user);
+
     public List<User> listUsers();
 
 }
