@@ -1,6 +1,6 @@
 package com.nesrux.organizer.domain.exceptions;
 
-public class NoStacktraceException extends RuntimeException {
+public abstract class NoStacktraceException extends RuntimeException {
 
     public NoStacktraceException(final String message) {
         this(message, null);
