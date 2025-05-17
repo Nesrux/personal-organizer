@@ -19,7 +19,7 @@ public class Category {
 
     private Category(final String id, final String name, final Instant createdAt, final Instant updatedAt) {
         this.id = id;
-        this.name = name;
+        this.name = Objects.requireNonNull(name, "name not be null");
         this.tasks = new ArrayList<>();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

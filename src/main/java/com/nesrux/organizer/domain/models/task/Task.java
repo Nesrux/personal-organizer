@@ -6,12 +6,14 @@ import java.util.Objects;
 import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.utils.IdUtils;
 import com.nesrux.organizer.utils.InstantUtils;
+import com.nesrux.organizer.utils.StringUtils;
 
 public class Task {
     private String id;
     private String title;
     private String description;
     private Frequency frequency;
+
     private boolean active;
     private Category category;
     private Instant createdAt;
@@ -28,11 +30,11 @@ public class Task {
             final Instant createdAt,
             final Instant updatedAt) {
         this.id = Objects.requireNonNull(id, "id not be null");
-        this.title = Objects.requireNonNull(title, "title not be null");
+        this.title = StringUtils.validate(title, "title");
+        this.description = StringUtils.validate(description, "description");
         this.category = Objects.requireNonNull(category, "category not be null");
         this.frequency = Objects.requireNonNull(frequency, "frequency not be null");
         this.active = active;
-        this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -47,7 +49,7 @@ public class Task {
                 title,
                 description,
                 frequency,
-                false,
+                true,
                 category,
                 InstantUtils.now(),
                 InstantUtils.now());
@@ -57,8 +59,8 @@ public class Task {
             final String title,
             final String description,
             final Frequency frequency) {
-        this.title = title;
-        this.description = description;
+        setTitle(title);
+        setDescription(description);
         this.frequency = frequency;
         this.updatedAt = InstantUtils.now();
         return this;
@@ -118,6 +120,18 @@ public class Task {
 
     public Category getCategory() {
         return this.category;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    private void setTitle(final String title) {
+        this.title = StringUtils.validate(title, "title");
+    }
+
+    private void setDescription(final String description) {
+        this.description = StringUtils.validate(description, "description");
     }
 
     @Override
