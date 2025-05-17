@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.nesrux.organizer.MockDomain;
+import com.nesrux.organizer.domain.exceptions.DomainException;
 import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.task.Frequency;
 import com.nesrux.organizer.domain.models.task.Task;
@@ -13,7 +14,7 @@ public class CategoryTest {
     @Test
     public void givenAvalidParams_whenCallsCreateCategory_thenInstantiateACategory() {
         // given
-        final var aName = "gym";
+        final var aName = "academia";
 
         // when
         final var category = Category.create(aName);
@@ -27,13 +28,45 @@ public class CategoryTest {
     }
 
     @Test
-    public void givenAninvalidParams_whenCallsCreateCategory_themThrowException() {
+    public void givenANullName_whenCallsCreateCategory_themThrowException() {
         // given
         final var aMessage = "name not be null";
         final String aName = null;
 
         // when
-        final var actualException = Assertions.assertThrows(NullPointerException.class, () -> {
+        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
+            Category.create(aName);
+        });
+
+        // then
+        Assertions.assertEquals(aMessage, actualException.getMessage());
+
+    }
+
+    @Test
+    public void givenAnEmptyName_whenCallsCreateCategory_themThrowException() {
+        // given
+        final var aMessage = "name not be empty";
+        final String aName = "";
+
+        // when
+        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
+            Category.create(aName);
+        });
+
+        // then
+        Assertions.assertEquals(aMessage, actualException.getMessage());
+
+    }
+
+    @Test
+    public void givenANameWithInvalidLenth_whenCallsCreateCategory_themThrowException() {
+        // given
+        final var aMessage = "name must have at least 4 characters";
+        final String aName = "aaa";
+
+        // when
+        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
             Category.create(aName);
         });
 

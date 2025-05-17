@@ -68,7 +68,7 @@ public class TaskTest {
     }
 
     @Test
-    public void givenATitleWithInvalidCaracteres_whenCallsCreateTask_thenThrowException() {
+    public void givenATitleWithInvalidLenth_whenCallsCreateTask_thenThrowException() {
         // given
         String title = "aaa";
         final var description = "sacar o dinheiro no caixa eletronico, pegar o boleto da faculdade e depois ir na lotérica";

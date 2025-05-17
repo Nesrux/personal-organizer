@@ -9,6 +9,7 @@ import java.util.Objects;
 import com.nesrux.organizer.domain.models.task.Task;
 import com.nesrux.organizer.utils.IdUtils;
 import com.nesrux.organizer.utils.InstantUtils;
+import com.nesrux.organizer.utils.StringUtils;
 
 public class Category {
     private String id;
@@ -19,7 +20,7 @@ public class Category {
 
     private Category(final String id, final String name, final Instant createdAt, final Instant updatedAt) {
         this.id = id;
-        this.name = Objects.requireNonNull(name, "name not be null");
+        this.name = StringUtils.validate(name, "name");
         this.tasks = new ArrayList<>();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
