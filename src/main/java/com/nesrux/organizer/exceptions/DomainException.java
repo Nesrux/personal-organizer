@@ -1,4 +1,4 @@
-package com.nesrux.organizer.domain.exceptions;
+package com.nesrux.organizer.exceptions;
 
 public class DomainException extends NoStacktraceException {
 
