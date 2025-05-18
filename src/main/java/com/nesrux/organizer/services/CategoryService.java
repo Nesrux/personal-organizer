@@ -16,6 +16,7 @@ public class CategoryService implements CategoryGateway {
     private final CategoryRepository repository;
 
     public CategoryService(final CategoryRepository repository) {
+
         this.repository = repository;
     }
 
@@ -37,6 +38,9 @@ public class CategoryService implements CategoryGateway {
     @Override
     public Category saveCategory(final Category category) {
         var entity = CategoryJpaEntity.toEntity(category);
+        System.out.println(category.getId());
+        System.out.println(entity.getId());
+
         return repository.save(entity).toDomain();
     }
 
