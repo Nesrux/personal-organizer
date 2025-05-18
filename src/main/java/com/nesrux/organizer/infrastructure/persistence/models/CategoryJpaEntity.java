@@ -33,7 +33,7 @@ public class CategoryJpaEntity {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    protected CategoryJpaEntity() {
+    public CategoryJpaEntity() {
     }
 
     private CategoryJpaEntity(
@@ -69,7 +69,7 @@ public class CategoryJpaEntity {
                 category.getUpdatedAt());
 
         final var taskEntities = category.getTasks().stream()
-                .map(TaskJpaEntity::toEntity)
+                .map(task -> TaskJpaEntity.toEntity(task, categoryEntity)) 
                 .collect(Collectors.toList());
 
         categoryEntity.setTasks(taskEntities);

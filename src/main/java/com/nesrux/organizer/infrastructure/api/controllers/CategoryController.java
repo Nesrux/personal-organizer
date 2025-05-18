@@ -1,4 +1,4 @@
-package com.nesrux.organizer.infrastructure.api;
+package com.nesrux.organizer.infrastructure.api.controllers;
 
 import java.util.List;
 
@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.category.CategoryGateway;
+import com.nesrux.organizer.infrastructure.api.models.category.CategoryListDTO;
+import com.nesrux.organizer.infrastructure.api.models.category.CategoryOutput;
 
 @RestController
 @RequestMapping("/categories")
@@ -22,33 +23,28 @@ public class CategoryController {
 
     private final CategoryGateway service;
 
-    public CategoryController(CategoryGateway service) {
+    public CategoryController(final CategoryGateway service) {
         this.service = service;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable String id) {
+    public ResponseEntity<CategoryOutput> findById(@PathVariable String id) {
         var category = service.getCategoryById(id);
-        return ResponseEntity.ok(category);
+        return ResponseEntity.ok(CategoryOutput.with(category));
     }
 
     @GetMapping
-    public List<Category> findAll() {
+    public List<CategoryListDTO> findAll() {
         var categories = service.listCategories();
-        return categories;
+        return categories.stream().map(CategoryListDTO::fromDomain).toList();
     }
 
     @PostMapping
-    public ResponseEntity<Category> save(@RequestBody Category category) {
+    public ResponseEntity<CategoryOutput> save(@RequestBody Category category) {
         var saved = service.saveCategory(category);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CategoryOutput.with(saved));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Category> update(@PathVariable String id, @RequestBody Category category) {
-        var updated = service.saveCategory(category);
-        return ResponseEntity.ok(updated);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
