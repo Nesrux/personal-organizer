@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Objects;
 
 import com.nesrux.organizer.domain.models.task.Task;
-import com.nesrux.organizer.utils.IdUtils;
-import com.nesrux.organizer.utils.InstantUtils;
-import com.nesrux.organizer.utils.StringUtils;
+import com.nesrux.organizer.domain.utils.IdUtils;
+import com.nesrux.organizer.domain.utils.InstantUtils;
+import com.nesrux.organizer.domain.utils.StringUtils;
 
 public class Category {
     private String id;

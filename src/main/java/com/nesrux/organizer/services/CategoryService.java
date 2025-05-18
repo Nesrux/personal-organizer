@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.category.CategoryGateway;
-import com.nesrux.organizer.exceptions.EntityNotFoundException;
+import com.nesrux.organizer.domain.exceptions.EntityNotFoundException;
 import com.nesrux.organizer.infrastructure.persistence.models.CategoryJpaEntity;
 import com.nesrux.organizer.infrastructure.persistence.repositories.CategoryRepository;
 

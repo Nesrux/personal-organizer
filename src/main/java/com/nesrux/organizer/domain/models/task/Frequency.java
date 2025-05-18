@@ -1,6 +1,6 @@
 package com.nesrux.organizer.domain.models.task;
 
-import com.nesrux.organizer.exceptions.DomainException;
+import com.nesrux.organizer.domain.exceptions.DomainException;
 
 public enum Frequency {
     UNIQUE("unique"),

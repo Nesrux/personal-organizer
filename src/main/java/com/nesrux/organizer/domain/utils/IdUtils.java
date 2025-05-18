@@ -1,4 +1,4 @@
-package com.nesrux.organizer.utils;
+package com.nesrux.organizer.domain.utils;
 
 import java.util.UUID;
 

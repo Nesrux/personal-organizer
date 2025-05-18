@@ -1,6 +1,6 @@
-package com.nesrux.organizer.utils;
+package com.nesrux.organizer.domain.utils;
 
-import com.nesrux.organizer.exceptions.DomainException;
+import com.nesrux.organizer.domain.exceptions.DomainException;
 
 public final class StringUtils {
 

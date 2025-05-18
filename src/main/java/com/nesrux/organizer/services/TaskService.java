@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nesrux.organizer.domain.models.task.Task;
 import com.nesrux.organizer.domain.models.task.TaskGateway;
-import com.nesrux.organizer.exceptions.EntityNotFoundException;
+import com.nesrux.organizer.domain.exceptions.EntityNotFoundException;
 import com.nesrux.organizer.infrastructure.persistence.models.CategoryJpaEntity;
 import com.nesrux.organizer.infrastructure.persistence.models.TaskJpaEntity;
 import com.nesrux.organizer.infrastructure.persistence.repositories.TaskRepository;
