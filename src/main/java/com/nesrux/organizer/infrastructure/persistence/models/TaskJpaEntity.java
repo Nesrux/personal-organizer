@@ -71,18 +71,19 @@ public class TaskJpaEntity {
         this.deletedAt = deletedAt;
     }
 
-    public static TaskJpaEntity toEntity(final Task aTask) {
-        return new TaskJpaEntity(
-                aTask.getId(),
-                aTask.getTitle(),
-                aTask.getDescription(),
-                aTask.getFrequency(),
-                aTask.isActive(),
-                CategoryJpaEntity.toEntity(aTask.getCategory()),
-                aTask.getCreatedAt(),
-                aTask.getUpdatedAt(),
-                aTask.getDeletedAt());
-    }
+   public static TaskJpaEntity toEntity(final Task task, final CategoryJpaEntity categoryJpa) {
+    return new TaskJpaEntity(
+            task.getId(),
+            task.getTitle(),
+            task.getDescription(),
+            task.getFrequency(),
+            task.isActive(),
+            categoryJpa, // ← Categoria já convertida, evita loop
+            task.getCreatedAt(),
+            task.getUpdatedAt(),
+            task.getDeletedAt()
+    );
+}
 
     public Task toDomain() {
         return Task.with(id, title, description, frequency, active, category.toDomain(), createdAt, updatedAt);

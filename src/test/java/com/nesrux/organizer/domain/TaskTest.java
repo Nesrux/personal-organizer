@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.nesrux.organizer.MockDomain;
-import com.nesrux.organizer.domain.exceptions.DomainException;
 import com.nesrux.organizer.domain.models.task.Frequency;
 import com.nesrux.organizer.domain.models.task.Task;
+import com.nesrux.organizer.exceptions.DomainException;
 
 public class TaskTest {
 

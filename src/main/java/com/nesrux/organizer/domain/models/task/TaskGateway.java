@@ -9,6 +9,6 @@ public interface TaskGateway {
 
     void deleteTaskById(String id);
 
-    List<Task> listTaskByUserId(String userId);
+    List<Task> listTasks();
 
 }
