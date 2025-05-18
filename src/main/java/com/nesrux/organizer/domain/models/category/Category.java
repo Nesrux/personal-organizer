@@ -35,7 +35,7 @@ public class Category {
             List<Task> tasks) {
         return new Category(id, name, createdAt, updatedAt, tasks);
     }
-    public static Category withoutTasks(
+    public static Category with(
             final String id,
             final String name,
             final Instant createdAt,

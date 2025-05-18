@@ -98,7 +98,7 @@ public class TaskJpaEntity {
                 this.description,
                 this.frequency,
                 this.active,
-                Category.withoutTasks(
+                Category.with(
                         this.category.getId(),
                         this.category.getName(),
                         this.category.getCreatedAt(),
