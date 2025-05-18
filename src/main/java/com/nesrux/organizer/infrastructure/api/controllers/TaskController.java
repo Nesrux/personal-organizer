@@ -2,6 +2,10 @@ package com.nesrux.organizer.infrastructure.api.controllers;
 
 import java.util.List;
 
+import com.nesrux.organizer.domain.models.category.CategoryGateway;
+import com.nesrux.organizer.domain.models.task.Frequency;
+import com.nesrux.organizer.domain.models.task.Task;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +21,11 @@ import com.nesrux.organizer.infrastructure.api.models.task.TaskOutputDto;
 public class TaskController {
 
     private final TaskGateway service;
+    private final CategoryGateway categoryGateway;
 
-    public TaskController(TaskGateway service) {
+    public TaskController(final TaskGateway service, final CategoryGateway categoryGateway) {
         this.service = service;
-        System.out.println("teste");
-        System.out.println("teste");
-        System.out.println("teste");
-        System.out.println("teste");
-        System.out.println("teste");
-
+        this.categoryGateway = categoryGateway;
     }
 
     @GetMapping("/{id}")
@@ -37,18 +37,27 @@ public class TaskController {
     @GetMapping
     public List<TaskListDTO> findAll() {
         var tasks = service.listTasks();
-        System.out.println("testeaaa");
-        System.out.println("testeaaaaaa");
-        System.out.println("testeaaaaa");
-        System.out.println("testeaaaa");
-        System.out.println("testeaa");
-
         return tasks.stream().map(TaskListDTO::fromDomain).toList();
     }
 
     @PostMapping
-    public ResponseEntity<TaskOutputDto> save(@RequestBody TaskInputDto task) {
-        var saved = service.saveTask(task.toDomain());
+    @Transactional
+    public ResponseEntity<TaskOutputDto> save(@RequestBody TaskInputDto taskDto) {
+        System.out.println(taskDto.categoryId());
+        System.out.println(taskDto.categoryId());
+        System.out.println(taskDto.categoryId());
+
+        var category = categoryGateway.getCategoryById(taskDto.categoryId());
+
+
+        var task = Task.create(
+                taskDto.title(),
+                taskDto.description(),
+                Frequency.fromString(taskDto.frequency()),
+                category
+        );
+
+        var saved = service.saveTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(TaskOutputDto.with(saved));
     }
 

@@ -10,15 +10,13 @@ public record CategoryOutput(
         String id,
         String name,
         Instant createdAt,
-        Instant updatedAt,
-        List<Task> tasks) {
+        Instant updatedAt) {
 
     public static CategoryOutput with(final Category category) {
         return new CategoryOutput(
                 category.getId(),
                 category.getName(),
                 category.getCreatedAt(),
-                category.getUpdatedAt(),
-                category.getTasks());
+                category.getUpdatedAt());
     }
 }

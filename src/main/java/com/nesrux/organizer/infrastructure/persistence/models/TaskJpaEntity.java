@@ -2,6 +2,7 @@ package com.nesrux.organizer.infrastructure.persistence.models;
 
 import java.time.Instant;
 
+import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.task.Frequency;
 import com.nesrux.organizer.domain.models.task.Task;
 
@@ -88,6 +89,24 @@ public class TaskJpaEntity {
     public Task toDomain() {
         return Task.with(id, title, description, frequency, active, category.toDomain(), createdAt, updatedAt);
 
+    }
+
+    public Task toDomainWithoutCategoryLoop() {
+        return Task.with(
+                this.id,
+                this.title,
+                this.description,
+                this.frequency,
+                this.active,
+                Category.withoutTasks(
+                        this.category.getId(),
+                        this.category.getName(),
+                        this.category.getCreatedAt(),
+                        this.category.getUpdatedAt()
+                ),
+                this.createdAt,
+                this.updatedAt
+        );
     }
 
     public String getId() {

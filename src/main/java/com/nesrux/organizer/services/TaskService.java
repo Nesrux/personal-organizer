@@ -2,6 +2,7 @@ package com.nesrux.organizer.services;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.nesrux.organizer.domain.models.task.Task;
@@ -22,6 +23,7 @@ public class TaskService implements TaskGateway {
 
     
     @Override
+    @Transactional
     public Task saveTask(Task task) {
         var categoryJpa = CategoryJpaEntity.toEntity(task.getCategory());
         var entity = TaskJpaEntity.toEntity(task, categoryJpa);
@@ -29,6 +31,7 @@ public class TaskService implements TaskGateway {
     }
 
     @Override
+    @Transactional
     public Task findTaskById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id))
@@ -36,6 +39,7 @@ public class TaskService implements TaskGateway {
     }
 
     @Override
+    @Transactional
     public void deleteTaskById(String id) {
         if (!repository.existsById(id)) {
             throw new EntityNotFoundException(id);
@@ -44,6 +48,7 @@ public class TaskService implements TaskGateway {
     }
 
     @Override
+    @Transactional
     public List<Task> listTasks() {
         return repository.findAll()
                 .stream()

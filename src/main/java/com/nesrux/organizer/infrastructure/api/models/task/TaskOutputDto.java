@@ -2,9 +2,9 @@ package com.nesrux.organizer.infrastructure.api.models.task;
 
 import java.time.Instant;
 
-import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.task.Frequency;
 import com.nesrux.organizer.domain.models.task.Task;
+import com.nesrux.organizer.infrastructure.api.models.category.CategoryResponse;
 
 public record TaskOutputDto(
         String id,
@@ -13,7 +13,7 @@ public record TaskOutputDto(
         Frequency frequency,
 
         boolean active,
-        Category category,
+        CategoryResponse category,
         Instant createdAt,
         Instant updatedAt,
         Instant deletedAt) {
@@ -25,7 +25,7 @@ public record TaskOutputDto(
                 task.getDescription(),
                 task.getFrequency(),
                 task.isActive(),
-                task.getCategory(),
+                CategoryResponse.fromDomain(task.getCategory()),
                 task.getCreatedAt(),
                 task.getUpdatedAt(),
                 task.getDeletedAt());

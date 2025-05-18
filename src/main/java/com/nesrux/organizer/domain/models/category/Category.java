@@ -35,6 +35,14 @@ public class Category {
             List<Task> tasks) {
         return new Category(id, name, createdAt, updatedAt, tasks);
     }
+    public static Category withoutTasks(
+            final String id,
+            final String name,
+            final Instant createdAt,
+            final Instant updatedAt
+    ) {
+        return new Category(id, name, createdAt, updatedAt, List.of());
+    }
 
     public static Category create(final String name) {
         return new Category(IdUtils.uuid(), name, InstantUtils.now(), InstantUtils.now(), new ArrayList<>());

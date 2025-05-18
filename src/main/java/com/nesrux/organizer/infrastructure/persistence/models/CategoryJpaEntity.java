@@ -49,7 +49,7 @@ public class CategoryJpaEntity {
 
     public Category toDomain() {
         final var domainTasks = this.getTasks().stream()
-                .map(TaskJpaEntity::toDomain)
+                .map(TaskJpaEntity::toDomainWithoutCategoryLoop)
                 .collect(Collectors.toList());
 
         return Category.with(
