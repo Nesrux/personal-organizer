@@ -71,7 +71,7 @@ http://localhost:8080
 Uma vez que a aplicação esteja rodando, acesse a documentação interativa gerada pelo OpenAPI:
 
 ```
-http://localhost:8080/api/swagger-ui.html
+http://localhost:8080/api/swagger-ui/index.html
 ```
 
 Essa interface permite testar todos os endpoints da API, visualizar os modelos utilizados (DTOs) e entender o comportamento esperado da aplicação.
@@ -177,7 +177,7 @@ http://localhost:8080
 A documentação da API estará disponível em:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/api/swagger-ui/index.html
 ```
 
 
