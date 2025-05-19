@@ -1,5 +1,7 @@
 package com.nesrux.organizer.domain;
 
+import com.nesrux.organizer.domain.utils.IdUtils;
+import com.nesrux.organizer.domain.utils.InstantUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +10,7 @@ import com.nesrux.organizer.domain.models.category.Category;
 import com.nesrux.organizer.domain.models.task.Frequency;
 import com.nesrux.organizer.domain.models.task.Task;
 import com.nesrux.organizer.domain.exceptions.DomainException;
+import org.springframework.util.Assert;
 
 public class CategoryTest {
 
@@ -25,6 +28,42 @@ public class CategoryTest {
         Assertions.assertNotNull(category.getCreatedAt());
         Assertions.assertNotNull(category.getUpdatedAt());
 
+    }
+
+    @Test
+    public void givenAValidParams_whenCallsWith_thenReturnNewCategory() {
+        //given
+        final var name = "estudos";
+        final var id = IdUtils.uuid();
+        final var createdAt = InstantUtils.now();
+        final var updatedAt = InstantUtils.now();
+
+        //whem
+        final var actualCategory = Category.with(id, name, createdAt, updatedAt);
+
+        //them
+        Assertions.assertNotNull(actualCategory);
+        Assertions.assertEquals(id, actualCategory.getId());
+        Assertions.assertEquals(name, actualCategory.getName());
+        Assertions.assertEquals(createdAt, actualCategory.getCreatedAt());
+        Assertions.assertEquals(updatedAt, actualCategory.getUpdatedAt());
+
+    }
+
+    @Test
+    public void givenANullId_whenCallsWith_thenThrowException() {
+        //given
+        final var name = "estudos";
+        final String id = null;
+        final var createdAt = InstantUtils.now();
+        final var updatedAt = InstantUtils.now();
+        final var expectedMessage = "id not be null";
+
+        //whem
+        final var actualException = Assertions.assertThrows(NullPointerException.class, () -> Category.with(id, name, createdAt, updatedAt));
+
+        //them
+        Assertions.assertEquals(expectedMessage, actualException.getMessage());
     }
 
     @Test
@@ -72,52 +111,61 @@ public class CategoryTest {
 
         // then
         Assertions.assertEquals(aMessage, actualException.getMessage());
+    }
+
+    @Test
+    public void givenAValidCategory_whenCallsUpdate_themUpdateACategory() {
+        //given
+        final var category = MockDomain.categoryMock();
+        final var id = category.getId();
+        final var name = category.getName();
+        final var createdAt = category.getCreatedAt();
+        final var updatedAt = category.getUpdatedAt();
+        final var expectedName = "Estudos";
+        //when
+        final var actualCategory = category.update(expectedName);
+
+        //then
+        Assertions.assertEquals(id, actualCategory.getId());
+        Assertions.assertEquals(expectedName, actualCategory.getName());
+        Assertions.assertEquals(createdAt, actualCategory.getCreatedAt());
+        Assertions.assertTrue(updatedAt.isBefore(actualCategory.getUpdatedAt()));
+        Assertions.assertNotNull(actualCategory);
+        Assertions.assertNotNull(actualCategory.getId());
+
 
     }
 
     @Test
-    public void givenAvalidCategory_whenCallsAddTask_thenReturnAcategory() {
-        // given
-        final var aCategory = MockDomain.categoryMock();
-        final var name = aCategory.getName();
-        final var id = aCategory.getId();
-        final var createdAt = aCategory.getCreatedAt();
-        final var updatedAt = aCategory.getUpdatedAt();
-        final var task = Task.create("Limpeza de estudos", "limpar toda a bancade de estudos", Frequency.UNIQUE,
-                aCategory);
+    public void givenANullName_whenCallsUpdate_thenThowException() {
+        //given
+        final var category = MockDomain.categoryMock();
+        final var name = category.getName();
+        final String expectedName = null;
+        final var expectedMessage = "name not be null";
+        //when
+        final var actualException = Assertions.assertThrows(DomainException.class, () -> category.update(expectedName));
 
-        // when
-        aCategory.addTask(task);
+        //then
+        Assertions.assertEquals(expectedMessage, actualException.getMessage());
+        Assertions.assertEquals(name, category.getName());
 
-        // then
-        Assertions.assertEquals(name, aCategory.getName());
-        Assertions.assertEquals(id, aCategory.getId());
-        Assertions.assertEquals(createdAt, aCategory.getCreatedAt());
-        Assertions.assertTrue(aCategory.getUpdatedAt().isAfter(updatedAt));
     }
 
     @Test
-    public void givenAvalidCategory_whenCallsDeleteTask_thenReturnAcategory() {
-        // given
-        final var aCategory = MockDomain.categoryMock();
-        final var name = aCategory.getName();
-        final var id = aCategory.getId();
-        final var createdAt = aCategory.getCreatedAt();
-        final var updatedAt = aCategory.getUpdatedAt();
-        final var task = Task.create("Limpeza de estudos", "limpar toda a bancade de estudos", Frequency.UNIQUE,
-                aCategory);
-        aCategory.addTask(task);
-        aCategory.addTask(MockDomain.taskMock());
+    public void givenAnEmptyName_whenCallsUpdate_thenThowException() {
+        //given
+        final var category = MockDomain.categoryMock();
+        final var name = category.getName();
+        final String expectedName = "";
+        final var expectedMessage = "name not be empty";
+        //when
+        final var actualException = Assertions.assertThrows(DomainException.class, () -> category.update(expectedName));
 
-        // when
-        aCategory.deleteTask(task);
+        //then
+        Assertions.assertEquals(expectedMessage, actualException.getMessage());
+        Assertions.assertEquals(name, category.getName());
 
-        // then
-        Assertions.assertEquals(name, aCategory.getName());
-        Assertions.assertEquals(id, aCategory.getId());
-        Assertions.assertEquals(createdAt, aCategory.getCreatedAt());
-        Assertions.assertTrue(aCategory.getUpdatedAt().isAfter(updatedAt));
-        Assertions.assertFalse(aCategory.getTasks().contains(task));
     }
 
 }

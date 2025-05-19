@@ -185,7 +185,7 @@ public class TaskTest {
         final var deletedAt = task.getDeletedAt();
 
         // when
-        task.actvate();
+        task.activate();
 
         // then
         Assertions.assertEquals(id, task.getId());
