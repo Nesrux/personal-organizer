@@ -83,6 +83,104 @@ A imagem da aplicação está publicada em:
 ```
 https://hub.docker.com/r/nesrux/organizer-api
 ```
+## ☕ Executando a aplicação com Java (sem Docker)
+
+Se por acaso você **não tiver o Docker instalado** ou **prefere rodar a aplicação localmente via Java**, siga os passos abaixo para executar o projeto manualmente.
+
+### 1. Verifique se o Java está instalado
+
+A aplicação foi construída utilizando o **Java 17**. Para verificar se você já possui essa versão instalada:
+
+```bash
+java -version
+```
+
+Se o resultado mostrar uma versão diferente ou o comando não for reconhecido, instale o Java 17:
+
+#### 🔧 Instalação do Java 17
+
+* **Windows / Mac / Linux (GUI)**: Assista a este vídeo do canal DevSuperior para aprender a instalar o Java 17:
+  [📺 Como instalar o Java 17 - DevSuperior](https://www.youtube.com/watch?app=desktop&v=QekeJBShCy4)
+
+* **Linux (via terminal)**: Você pode usar o [SDKMAN](https://sdkman.io/install/) para instalar:
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install java 17.0.9-tem
+```
+
+---
+
+### 2. Clone o projeto com Git
+
+Se você possui chave SSH configurada no GitHub:
+
+```bash
+git clone git@github.com:Nesrux/personal-organizer.git
+```
+
+Ou utilizando HTTPS:
+
+```bash
+git clone https://github.com/Nesrux/personal-organizer.git
+```
+
+---
+
+### 3. Acesse a pasta do projeto
+
+```bash
+cd personal-organizer
+```
+
+---
+
+### 4. Compile o projeto com Gradle
+
+> O projeto utiliza o **Gradle Wrapper**, então não é necessário ter o Gradle instalado no seu sistema.
+
+```bash
+./gradlew build
+```
+
+No Windows:
+
+```bash
+gradlew.bat build
+```
+
+---
+
+### 5. Execute a aplicação
+
+```bash
+./gradlew bootRun
+```
+
+Ou, se preferir rodar o `.jar` diretamente após o build:
+
+```bash
+java -jar build/libs/*.jar
+```
+
+---
+
+### 6. Acesse a aplicação
+
+Depois que a aplicação estiver rodando, você pode acessá-la em:
+
+```
+http://localhost:8080
+```
+
+A documentação da API estará disponível em:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+
 
 ## ✍️ Autor
 
