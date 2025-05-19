@@ -10,5 +10,7 @@ public interface CategoryGateway {
 
     Category saveCategory(final Category category);
 
+    Category updateCategory(final Category category);
+
     List<Category> listCategories();
 }

@@ -12,61 +12,38 @@ import com.nesrux.organizer.domain.utils.InstantUtils;
 import com.nesrux.organizer.domain.utils.StringUtils;
 
 public class Category {
-    private String id;
+    private final String id;
     private String name;
-    private List<Task> tasks;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
 
-    private Category(final String id, final String name, final Instant createdAt, final Instant updatedAt,
-            List<Task> tasks) {
-        this.id = id;
-        this.name = StringUtils.validate(name, "name");
-        this.tasks = new ArrayList<>();
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public static Category with(
-            final String id,
-            final String name,
-            final Instant createdAt,
-            final Instant updatedAt,
-            List<Task> tasks) {
-        return new Category(id, name, createdAt, updatedAt, tasks);
-    }
-    public static Category with(
-            final String id,
-            final String name,
-            final Instant createdAt,
-            final Instant updatedAt
+    private Category(final String id,
+                     final String name,
+                     final Instant createdAt,
+                     final Instant updatedAt
     ) {
-        return new Category(id, name, createdAt, updatedAt, List.of());
+        this.id = Objects.requireNonNull(id, "id not be null");
+        this.name = StringUtils.validate(name, "name");
+        this.createdAt = Objects.requireNonNull(createdAt, "createdAt not be null");
+        this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt not be null");
     }
 
-    public static Category create(final String name) {
-        return new Category(IdUtils.uuid(), name, InstantUtils.now(), InstantUtils.now(), new ArrayList<>());
+    public static Category create(
+            final String name) {
+        return new Category(IdUtils.uuid(), name, InstantUtils.now(), InstantUtils.now());
     }
 
-    public Category addTask(final Task task) {
-        tasks.add(task);
-        this.updatedAt = InstantUtils.now();
 
-        return this;
+    public static  Category with(final String id, final String name, final Instant createdAt, final Instant updatedAt) {
+        return new Category(id, name, createdAt, updatedAt);
     }
 
-    public Category addTasks(final List<Task> tasks) {
-        tasks.addAll(tasks);
-        this.updatedAt = InstantUtils.now();
-
-        return this;
-    }
-
-    public Category deleteTask(final Task task) {
-        this.tasks.remove(task);
+    public Category update(final String name){
+        this.name = StringUtils.validate(name, "name");
         this.updatedAt = InstantUtils.now();
         return this;
     }
+
 
     public String getId() {
         return this.id;
@@ -84,17 +61,10 @@ public class Category {
         return this.updatedAt;
     }
 
-    public List<Task> getTasks() {
-        return Collections.unmodifiableList(tasks);
-    }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Category)) {
-            return false;
-        }
+        if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
         return Objects.equals(id, category.id);
     }
@@ -103,5 +73,4 @@ public class Category {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
 }
