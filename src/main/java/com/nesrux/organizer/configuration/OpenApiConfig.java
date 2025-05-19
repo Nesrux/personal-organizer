@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
                 description = "API for task management",
                 license = @License(
                         name = "MIT",
-                        url = "colocar depois"
+                        url = "https://github.com/Nesrux/personal-organizer?tab=MIT-1-ov-file#readme"
                 ),
                 contact = @Contact(
                         name = "João marcos",
