@@ -28,9 +28,6 @@ public class CategoryService implements CategoryGateway {
 
     @Override
     public void deleteCategoryById(final String id) {
-        if (!repository.existsById(id)) {
-            throw new EntityNotFoundException(id);
-        }
         repository.deleteById(id);
     }
 

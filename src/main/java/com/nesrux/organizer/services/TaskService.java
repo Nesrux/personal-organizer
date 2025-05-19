@@ -40,17 +40,16 @@ public class TaskService implements TaskGateway {
 
     @Override
     @Transactional
-    public void deleteTaskById(String id) {
-        if (!repository.existsById(id)) {
-            throw new EntityNotFoundException(id);
-        }
-        repository.deleteById(id);
+    public void deleteTaskById(final String id) {
+        final var task = findTaskById(id);
+        task.deactivate();
+        saveTask(task);
     }
 
     @Override
     @Transactional
     public List<Task> listTasks() {
-        return repository.findAll()
+        return repository.findAllActiveTasks()
                 .stream()
                 .map(TaskJpaEntity::toDomain)
                 .toList();
