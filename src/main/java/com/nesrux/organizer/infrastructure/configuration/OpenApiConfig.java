@@ -1,4 +1,4 @@
-package com.nesrux.organizer.configuration;
+package com.nesrux.organizer.infrastructure.configuration;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
