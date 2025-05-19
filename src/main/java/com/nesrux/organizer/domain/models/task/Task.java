@@ -78,7 +78,7 @@ public class Task {
         return this;
     }
 
-    public void actvate() {
+    public void activate() {
         if (!this.active) {
             this.active = true;
             this.updatedAt = InstantUtils.now();
@@ -140,18 +140,13 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Task)) {
-            return false;
-        }
+        if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(this.id, task.id);
+        return Objects.equals(id, task.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.id);
+        return Objects.hashCode(id);
     }
-
 }
