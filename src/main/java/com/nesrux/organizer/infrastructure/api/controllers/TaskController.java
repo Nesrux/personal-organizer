@@ -12,12 +12,14 @@ import com.nesrux.organizer.infrastructure.api.models.task.TaskOutputDto;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+
 @CrossOrigin("*")
 public class TaskController implements TaskApi {
 
@@ -30,7 +32,6 @@ public class TaskController implements TaskApi {
     }
 
     @Override
-    @GetMapping("/{id}")
     public ResponseEntity<TaskOutputDto> findById(final TaskInputId inputId) {
         var task = service.findTaskById(inputId.id());
         return ResponseEntity.ok(TaskOutputDto.with(task));
@@ -44,7 +45,6 @@ public class TaskController implements TaskApi {
     }
 
     @Override
-    @PostMapping
     @Transactional
     public ResponseEntity<TaskOutputDto> save(final TaskInputDto taskDto) {
         var category = categoryGateway.getCategoryById(taskDto.categoryId());
@@ -61,7 +61,6 @@ public class TaskController implements TaskApi {
     }
 
     @Override
-    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(final TaskInputId inputId) {
         service.deleteTaskById(inputId.id());
         return ResponseEntity.noContent().build();
