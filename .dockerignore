@@ -1,0 +1,21 @@
+# Evita que o repositório Git seja copiado para a imagem
+.git
+.gitignore
+
+# Ignora pastas de CI/CD
+.github
+
+# Ignora arquivos do Docker Compose (não usados no build da imagem)
+docker-compose.yml
+docker-compose.override.yml
+
+# Ignora diretórios e arquivos gerados
+build
+.gradle
+out
+
+# Ignora arquivos de teste e config locais
+*.iml
+*.log
+*.env
+.idea
