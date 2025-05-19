@@ -91,4 +91,3 @@ https://hub.docker.com/r/nesrux/organizer-api
 
 ---
 
-Se quiser contribuir, relatar problemas ou dar sugestões, fique à vontade para abrir uma issue ou PR! 🚀
